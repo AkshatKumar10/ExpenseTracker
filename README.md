@@ -28,7 +28,7 @@ A **Splitwise-style** expense tracker built with **React Native (Expo)**. Create
   Get a clear view of debts per group or overall across all groups.
 
 
-## 🛠 Tech Stack
+## 🧰 Tech Stack
 
 - **Framework:** React Native with Expo
 - **State Management:** Zustand
@@ -36,7 +36,7 @@ A **Splitwise-style** expense tracker built with **React Native (Expo)**. Create
 - **Authentication:** Firebase Email/Password
 - **UI & UX:** TailwindCSS (via NativeWind)
 
-## 🛠️ Installation
+## 📦 Installation
 
 1. Clone the repository
 ```bash
