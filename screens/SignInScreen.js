@@ -11,7 +11,11 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  fetchSignInMethodsForEmail,
+} from "firebase/auth";
 
 export default function SignInScreen() {
   const width = Dimensions.get("window").width;
@@ -52,6 +56,35 @@ export default function SignInScreen() {
     }
   };
 
+  const handleForgotPassword = async () => {
+    if (!email) {
+      Alert.alert("Error", "Please enter your email address first");
+      return;
+    }
+    try {
+      const methods = await fetchSignInMethodsForEmail(auth, email);
+
+      if (methods.length === 0) {
+        Alert.alert(
+          "Email Not Found",
+          "This email is not registered. Please sign up first."
+        );
+        return;
+      }
+      await sendPasswordResetEmail(auth, email);
+      Alert.alert(
+        "Password Reset Email Sent",
+        `A password reset link has been sent to ${email}. Please check your inbox.`
+      );
+    } catch (error) {
+      let errorMessage = "Failed to send password reset email";
+      if (error.code === "auth/invalid-email") {
+        errorMessage = "Invalid email format";
+      }
+      Alert.alert("Error", errorMessage);
+    }
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-black">
       <ScrollView
@@ -71,13 +104,25 @@ export default function SignInScreen() {
               editable={!loading}
             />
             <TextInput
-              className="bg-white rounded-xl py-4 px-4 mb-6 text-lg"
+              className="bg-white rounded-xl py-4 px-4 mb-2 text-lg"
               placeholder="Password"
               value={password}
               onChangeText={setPassword}
               secureTextEntry
               editable={!loading}
             />
+
+            {/* Forgot Password Link */}
+            <TouchableOpacity
+              onPress={handleForgotPassword}
+              disabled={loading}
+              className="mb-4"
+            >
+              <Text className="text-sky-400 text-right text-base">
+                Forgot Password?
+              </Text>
+            </TouchableOpacity>
+
             <TouchableOpacity
               className={`bg-sky-400 rounded-xl items-center justify-center py-4 mb-4 ${
                 loading ? "opacity-50" : ""
@@ -89,16 +134,17 @@ export default function SignInScreen() {
                 {loading ? "Signing In..." : "Sign In"}
               </Text>
             </TouchableOpacity>
+
             <View className="flex-row justify-center gap-1">
-            <Text className="text-sky-400 text-center text-lg">
-              Don't have an account?
-            </Text>
-            <TouchableOpacity
-              onPress={() => navigation.navigate("SignUp")}
-              disabled={loading}
-            >
-              <Text className="text-white text-center text-lg">Sign Up</Text>
-            </TouchableOpacity>
+              <Text className="text-sky-400 text-center text-lg">
+                Don't have an account?
+              </Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("SignUp")}
+                disabled={loading}
+              >
+                <Text className="text-white text-center text-lg">Sign Up</Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
