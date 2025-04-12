@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
 import {
   View,
   Text,
@@ -9,7 +9,7 @@ import {
   Alert,
   BackHandler,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useGroupStore } from "../store/groupStore";
 import * as Haptics from "expo-haptics";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -61,7 +61,8 @@ export default function HomeScreen() {
     );
   };
 
-  useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
     const onBackPress = () => {
       Alert.alert(
         "Exit App",
@@ -84,7 +85,8 @@ export default function HomeScreen() {
     );
   
     return () => backHandler.remove();
-  }, []);
+  }, [])
+);
 
   const renderGroupItem = ({ item }) => {
     const previewMembers = item.members?.slice(0, 3) || [];
