@@ -62,6 +62,7 @@ export default function ProfileScreen() {
         style: "destructive",
         onPress: async () => {
           try {
+            await AsyncStorage.removeItem("@profile_image");
             await signOut(auth);
             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
             navigation.reset({
@@ -89,11 +90,17 @@ export default function ProfileScreen() {
         <View className="bg-neutral-800 rounded-xl p-4 mb-6">
           <View className="flex-row items-center">
             <TouchableOpacity onPress={addImage} activeOpacity={0.9}>
-              <View className="w-14 h-14 bg-sky-500 rounded-full items-center justify-center mr-6">
+              <View className="w-14 h-14 bg-sky-500 rounded-full items-center justify-center mr-6 border border-white">
                 {image ? (
                   <Image
                     source={{ uri: image }}
-                    style={{ width: 56, height: 56, borderRadius: 999 }}
+                    style={{
+                      width: 56,
+                      height: 56,
+                      borderRadius: 999,
+                      borderWidth: 1,
+                      borderColor: "#ffffff",
+                    }}
                   />
                 ) : (
                   <Text className="text-white text-xl font-bold">
