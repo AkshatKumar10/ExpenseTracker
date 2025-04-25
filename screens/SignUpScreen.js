@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from 'react';
 import {
   Dimensions,
   SafeAreaView,
@@ -8,62 +8,80 @@ import {
   TouchableOpacity,
   View,
   Alert,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { auth } from "../firebase";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { auth } from '../firebase';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { ThemeContext } from '../App';
 
 export default function SignUpScreen() {
-  const width = Dimensions.get("window").width;
+  const width = Dimensions.get('window').width;
   const navigation = useNavigation();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   const handleSignUp = async () => {
     if (!name || !email || !password) {
-      Alert.alert("Error", "Please fill all fields");
+      Alert.alert('Error', 'Please fill all fields');
       return;
     }
 
     setLoading(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
       await updateProfile(userCredential.user, {
-        displayName: name
+        displayName: name,
       });
-      navigation.navigate("SignIn");
+      navigation.navigate('SignIn');
     } catch (error) {
-      let errorMessage = "An error occurred  occurred during sign up";
+      let errorMessage = 'An error occurred  occurred during sign up';
       switch (error.code) {
-        case "auth/email-already-in-use":
-          errorMessage = "This email is already registered";
+        case 'auth/email-already-in-use':
+          errorMessage = 'This email is already registered';
           break;
-        case "auth/invalid-email":
-          errorMessage = "Invalid email format";
+        case 'auth/invalid-email':
+          errorMessage = 'Invalid email format';
           break;
-        case "auth/weak-password":
-          errorMessage = "Password should be at least 6 characters";
+        case 'auth/weak-password':
+          errorMessage = 'Password should be at least 6 characters';
           break;
       }
-      Alert.alert("Sign Up Failed", errorMessage);
+      Alert.alert('Sign Up Failed', errorMessage);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-black">
+    <SafeAreaView
+      className={`flex-1 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
+    >
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
       >
         <View className="flex-1 justify-center items-center px-4">
-          <Text className="text-4xl text-white font-bold mb-10">Sign Up</Text>
+          <Text
+            className={`${
+              theme === 'dark' ? 'text-white' : 'text-black'
+            } text-4xl font-bold mb-10`}
+          >
+            Sign Up
+          </Text>
           <View style={{ width: width - 40 }} className="mt-4 mb-10">
             <TextInput
-              className="bg-white rounded-xl py-4 px-4 mb-4 text-lg"
+              className={`${
+                theme === 'dark'
+                  ? 'bg-gray-800 text-white'
+                  : 'bg-gray-100 text-black'
+              } rounded-xl py-4 px-4 mb-4 text-lg`}
               placeholder="Name"
               value={name}
               onChangeText={setName}
@@ -71,7 +89,11 @@ export default function SignUpScreen() {
               editable={!loading}
             />
             <TextInput
-              className="bg-white rounded-xl py-4 px-4 mb-4 text-lg"
+              className={`${
+                theme === 'dark'
+                  ? 'bg-gray-800 text-white'
+                  : 'bg-gray-100 text-black'
+              } rounded-xl py-4 px-4 mb-4 text-lg`}
               placeholder="Email"
               value={email}
               onChangeText={setEmail}
@@ -80,7 +102,11 @@ export default function SignUpScreen() {
               editable={!loading}
             />
             <TextInput
-              className="bg-white rounded-xl py-4 px-4 mb-6 text-lg"
+              className={`${
+                theme === 'dark'
+                  ? 'bg-gray-800 text-white'
+                  : 'bg-gray-100 text-black'
+              } rounded-xl py-4 px-4 mb-6 text-lg`}
               placeholder="Password"
               value={password}
               onChangeText={setPassword}
@@ -89,13 +115,17 @@ export default function SignUpScreen() {
             />
             <TouchableOpacity
               className={`bg-sky-400 rounded-xl items-center justify-center py-4 mb-4 ${
-                loading ? "opacity-50" : ""
+                loading ? 'opacity-50' : ''
               }`}
               onPress={handleSignUp}
               disabled={loading}
             >
-              <Text className="text-white text-xl font-bold">
-                {loading ? "Signing Up..." : "Sign Up"}
+              <Text
+                className={`${
+                  theme === 'dark' ? 'text-white' : 'text-black'
+                } text-xl font-bold`}
+              >
+                {loading ? 'Signing In...' : 'Sign In'}
               </Text>
             </TouchableOpacity>
             <View className="flex-row justify-center gap-1">
@@ -103,10 +133,16 @@ export default function SignUpScreen() {
                 Already have an account?
               </Text>
               <TouchableOpacity
-                onPress={() => navigation.navigate("SignIn")}
+                onPress={() => navigation.navigate('SignIn')}
                 disabled={loading}
               >
-                <Text className="text-white text-center text-lg">Sign In</Text>
+                <Text
+                  className={`${
+                    theme === 'dark' ? 'text-white' : 'text-black'
+                  } text-center text-lg`}
+                >
+                  Sign In
+                </Text>
               </TouchableOpacity>
             </View>
           </View>
