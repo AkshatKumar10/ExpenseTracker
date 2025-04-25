@@ -28,12 +28,10 @@ export default function GroupDetail({ route }) {
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
   const [splitType, setSplitType] = useState("equal");
   const [snackbarVisible, setSnackbarVisible] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [title, setTitle] = useState("");
   const [showAllMembers, setShowAllMembers] = useState(false);
 
   const availablePayers = group?.members || [];
@@ -65,7 +63,7 @@ export default function GroupDetail({ route }) {
   };
 
   const handleAddExpense = () => {
-    if (!title.trim() || !description.trim() || !category.trim() || !amount || !payer.trim()) {
+    if (!description.trim() || !amount || !payer.trim()) {
       setIsModalVisible(false);
       setTimeout(() => {
         setSnackbarMessage("Please fill all fields");
@@ -101,9 +99,7 @@ export default function GroupDetail({ route }) {
 
     const expense = {
       id: nanoid(),
-      title,
       description,
-      category,
       amount: parseFloat(amount),
       payer,
       splitType,
@@ -115,9 +111,7 @@ export default function GroupDetail({ route }) {
   };
 
   const resetForm = () => {
-    setTitle("");
     setDescription("");
-    setCategory("");
     setAmount("");
     setPayer(availablePayers[0]?.name || "");
     setSplitType("equal");
@@ -231,13 +225,12 @@ export default function GroupDetail({ route }) {
                 <View className="bg-gray-800 rounded-xl p-4 mb-3">
                   <View className="flex-row justify-between mb-2">
                     <Text className="text-xl text-white flex-1 font-medium">
-                      {item.title} | {item.description}
+                      {item.description}
                     </Text>
                     <Text className="text-blue-400 font-bold text-base">₹{item.amount.toFixed(2)}</Text>
                   </View>
                   <View className="flex-row mb-2">
                     <Text className="text-gray-400 text-base mr-6">Paid by {item.payer}</Text>
-                    <Text className="text-gray-400 text-base flex items-center">{item.category}</Text>
                   </View>
                   <View className="flex-row justify-between">
                     <Text className="text-gray-500 text-sm">{formatExpenseDate(item.timestamp)}</Text>
@@ -260,9 +253,7 @@ export default function GroupDetail({ route }) {
             className="absolute right-5 bottom-5 bg-blue-500 w-14 h-14 rounded-full items-center justify-center shadow-lg shadow-black"
             onPress={() => {
               setIsModalVisible(true);
-              setTitle("");
               setDescription("");
-              setCategory("");
               setAmount("");
               setPayer(availablePayers[0]?.name || "");
               setSplitType("equal");
@@ -285,25 +276,11 @@ export default function GroupDetail({ route }) {
                 </TouchableOpacity>
               </View>
               <TextInput
-                placeholder="Title"
-                placeholderTextColor="#9CA3AF"
-                className="bg-gray-700 text-white p-4 mb-4 rounded-lg text-base"
-                value={title}
-                onChangeText={setTitle}
-              />
-              <TextInput
                 placeholder="Description"
                 placeholderTextColor="#9CA3AF"
                 className="bg-gray-700 text-white p-4 mb-4 rounded-lg text-base"
                 value={description}
                 onChangeText={setDescription}
-              />
-              <TextInput
-                placeholder="Category"
-                placeholderTextColor="#9CA3AF"
-                className="bg-gray-700 text-white p-4 mb-4 rounded-lg text-base"
-                value={category}
-                onChangeText={setCategory}
               />
               <TextInput
                 placeholder="Amount"
