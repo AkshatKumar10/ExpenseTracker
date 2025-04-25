@@ -1,14 +1,13 @@
-import React from "react";
-import {
-  SafeAreaView,
-  View,
-  Pressable
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import React, { useContext } from 'react';
+import { SafeAreaView, View, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import { ThemeContext } from '../App';
+import { StatusBar } from 'expo-status-bar';
 
 const NavBar = ({ onBackPress }) => {
   const navigation = useNavigation();
+  const { theme } = useContext(ThemeContext);
 
   const handleBackPress = () => {
     if (onBackPress) {
@@ -19,25 +18,15 @@ const NavBar = ({ onBackPress }) => {
   };
 
   return (
-    <SafeAreaView className="bg-black">
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-        className="pl-4 pt-12 pr-5"
-      >
-        <Pressable onPress={handleBackPress}>
-          <AntDesign
-            name="arrowleft"
-            size={28}
-            color="white"
-            className="ml-0"
-          />
-        </Pressable>
-      </View>
-    </SafeAreaView>
+    <View>
+      <Pressable onPress={handleBackPress} className="px-4">
+        <AntDesign
+          name="arrowleft"
+          size={28}
+          color={theme === 'dark' ? 'white' : 'black'}
+        />
+      </Pressable>
+    </View>
   );
 };
 

@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { persist } from 'zustand/middleware';
 
 export const useGroupStore = create(
   persist(
@@ -15,7 +15,7 @@ export const useGroupStore = create(
           groups: state.groups.map((group) =>
             group.id === groupId
               ? { ...group, expenses: [...group.expenses, expense] }
-              : group
+              : group,
           ),
         })),
       deleteGroup: (groupId) =>
@@ -37,12 +37,14 @@ export const useGroupStore = create(
         }));
 
         group.expenses.forEach((expense) => {
-          const payerIndex = balances.findIndex((m) => m.name === expense.payer);
+          const payerIndex = balances.findIndex(
+            (m) => m.name === expense.payer,
+          );
           if (payerIndex >= 0) {
             balances[payerIndex].paid += expense.amount;
           }
 
-          if (expense.splitType === "equal") {
+          if (expense.splitType === 'equal') {
             const sharePerMember = expense.amount / group.members.length;
             balances.forEach((member, index) => {
               balances[index].owes += sharePerMember;
@@ -57,10 +59,10 @@ export const useGroupStore = create(
                 });
               }
             });
-          } else if (expense.splitType === "custom" && expense.splits) {
+          } else if (expense.splitType === 'custom' && expense.splits) {
             Object.entries(expense.splits).forEach(([memberId, amount]) => {
               const memberIndex = balances.findIndex(
-                (m) => m.id.split("-")[0] === memberId
+                (m) => m.id.split('-')[0] === memberId,
               );
               if (memberIndex >= 0) {
                 balances[memberIndex].owes += amount;
@@ -113,7 +115,7 @@ export const useGroupStore = create(
       },
     }),
     {
-      name: "group-storage",
+      name: 'group-storage',
       storage: {
         getItem: async (name) => {
           const data = await AsyncStorage.getItem(name);
@@ -126,6 +128,6 @@ export const useGroupStore = create(
           await AsyncStorage.removeItem(name);
         },
       },
-    }
-  )
+    },
+  ),
 );

@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { ActivityIndicator, View } from "react-native";
-import { auth } from "../firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import React, { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { ActivityIndicator, View } from 'react-native';
+import { auth } from '../firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
-import WelcomeScreen from "../screens/WelcomeScreen";
-import HomeScreen from "../screens/HomeScreen";
-import CreateGroup from "../screens/CreateGroup";
-import GroupDetail from "../screens/GroupDetail";
-import AddMembersScreen from "../screens/AddMembersScreen";
-import SignInScreen from "../screens/SignInScreen";
-import SignUpScreen from "../screens/SignUpScreen";
-import ProfileScreen from "../screens/ProfileScreen"; 
-import SummaryScreen from "../screens/SummaryScreen";
+import WelcomeScreen from '../screens/WelcomeScreen';
+import HomeScreen from '../screens/HomeScreen';
+import CreateGroup from '../screens/CreateGroup';
+import GroupDetail from '../screens/GroupDetail';
+import AddMembersScreen from '../screens/AddMembersScreen';
+import SignInScreen from '../screens/SignInScreen';
+import SignUpScreen from '../screens/SignUpScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import SummaryScreen from '../screens/SummaryScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,7 +40,7 @@ export default function AppNavigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={user ? "Home" : "Welcome"}
+        initialRouteName={user ? 'Home' : 'Welcome'}
         screenOptions={{
           headerShown: false,
         }}
@@ -50,7 +50,7 @@ export default function AppNavigation() {
           component={WelcomeScreen}
           options={{
             gestureEnabled: false,
-            presentation: "transparentModal",
+            presentation: 'transparentModal',
           }}
         />
         <Stack.Screen
@@ -58,7 +58,7 @@ export default function AppNavigation() {
           component={SignInScreen}
           options={{
             gestureEnabled: false,
-            presentation: "transparentModal",
+            presentation: 'transparentModal',
           }}
         />
         <Stack.Screen
@@ -66,7 +66,7 @@ export default function AppNavigation() {
           component={SignUpScreen}
           options={{
             gestureEnabled: false,
-            presentation: "transparentModal",
+            presentation: 'transparentModal',
           }}
         />
         <Stack.Screen
@@ -74,7 +74,7 @@ export default function AppNavigation() {
           component={AddMembersScreen}
           options={{
             gestureEnabled: false,
-            presentation: "transparentModal",
+            presentation: 'transparentModal',
           }}
         />
         <Stack.Screen
@@ -82,7 +82,7 @@ export default function AppNavigation() {
           component={HomeScreen}
           options={{
             gestureEnabled: false,
-            presentation: "transparentModal",
+            presentation: 'transparentModal',
           }}
         />
         <Stack.Screen
@@ -90,7 +90,7 @@ export default function AppNavigation() {
           component={CreateGroup}
           options={{
             gestureEnabled: false,
-            presentation: "transparentModal",
+            presentation: 'transparentModal',
           }}
         />
         <Stack.Screen
@@ -98,7 +98,7 @@ export default function AppNavigation() {
           component={GroupDetail}
           options={{
             gestureEnabled: false,
-            presentation: "transparentModal",
+            presentation: 'transparentModal',
           }}
         />
         <Stack.Screen
@@ -106,7 +106,7 @@ export default function AppNavigation() {
           component={ProfileScreen}
           options={{
             gestureEnabled: false,
-            presentation: "transparentModal",
+            presentation: 'transparentModal',
           }}
         />
         <Stack.Screen
@@ -114,7 +114,7 @@ export default function AppNavigation() {
           component={SummaryScreen}
           options={{
             gestureEnabled: false,
-            presentation: "transparentModal",
+            presentation: 'transparentModal',
           }}
         />
       </Stack.Navigator>
