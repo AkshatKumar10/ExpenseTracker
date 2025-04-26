@@ -13,7 +13,7 @@ import { useGroupStore } from '../store/groupStore';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import NavBar from '../components/Navbar';
 import { auth } from '../firebase';
-import { ThemeContext } from '../App';
+import { ThemeContext } from '../context/ThemeContext';
 
 export default function SummaryScreen() {
   const navigation = useNavigation();
