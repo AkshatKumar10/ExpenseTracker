@@ -13,7 +13,7 @@ import { AntDesign } from '@expo/vector-icons';
 import NavBar from '../components/Navbar';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { auth } from '../firebase';
-import { ThemeContext } from '../App';
+import { ThemeContext } from '../context/ThemeContext';
 
 export default function AddMembersScreen() {
   const navigation = useNavigation();

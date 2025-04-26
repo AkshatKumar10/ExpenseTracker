@@ -15,7 +15,7 @@ import { useGroupStore } from '../store/groupStore';
 import * as Haptics from 'expo-haptics';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { auth } from '../firebase';
-import { ThemeContext } from '../App';
+import { ThemeContext } from '../context/ThemeContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function HomeScreen() {
@@ -217,9 +217,7 @@ export default function HomeScreen() {
 
   return (
     <SafeAreaView
-      className={`flex-1 ${
-        theme === 'dark' ? 'bg-black' : 'bg-white'
-      } px-4 pt-2`}
+      className={`flex-1 ${theme === 'dark' ? 'bg-black' : 'bg-white'} px-4 pt-2`}
     >
       <StatusBar
         barStyle={theme === 'dark' ? 'light-content' : 'dark-content'}

@@ -19,7 +19,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import NavBar from '../components/Navbar';
 import { Snackbar } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
-import { ThemeContext } from '../App';
+import { ThemeContext } from '../context/ThemeContext';
 import { auth } from '../firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

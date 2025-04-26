@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
-import { SafeAreaView, View, Pressable } from 'react-native';
+import { View, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { ThemeContext } from '../App';
-import { StatusBar } from 'expo-status-bar';
+import { ThemeContext } from '../context/ThemeContext';
 
 const NavBar = ({ onBackPress }) => {
   const navigation = useNavigation();

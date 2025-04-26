@@ -12,7 +12,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { ThemeContext } from '../App';
+import { ThemeContext } from '../context/ThemeContext';
 
 export default function SignUpScreen() {
   const width = Dimensions.get('window').width;

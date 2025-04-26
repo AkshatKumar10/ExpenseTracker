@@ -15,7 +15,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import * as Haptics from 'expo-haptics';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ThemeContext } from '../App';
+import { ThemeContext } from '../context/ThemeContext';
 
 export default function ProfileScreen() {
   const navigation = useNavigation();

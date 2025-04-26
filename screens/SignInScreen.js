@@ -16,7 +16,7 @@ import {
   sendPasswordResetEmail,
   fetchSignInMethodsForEmail,
 } from 'firebase/auth';
-import { ThemeContext } from '../App';
+import { ThemeContext } from '../context/ThemeContext';
 
 export default function SignInScreen() {
   const width = Dimensions.get('window').width;

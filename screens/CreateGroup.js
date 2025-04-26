@@ -17,10 +17,10 @@ import { useGroupStore } from '../store/groupStore';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { nanoid } from 'nanoid/non-secure';
 import NavBar from '../components/Navbar';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import Feather from '@expo/vector-icons/Feather';
 import { auth } from '../firebase';
-import { ThemeContext } from '../App';
+import { ThemeContext } from '../context/ThemeContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CreateGroup() {
