@@ -10,7 +10,6 @@ import {
   Modal,
   StatusBar,
   Image,
-  Pressable,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useGroupStore } from '../store/groupStore';
@@ -26,7 +25,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function GroupDetail({ route }) {
   const { groupId } = route?.params || {};
   const navigation = useNavigation();
-  const { groups, addExpense, calculateMemberBalances } = useGroupStore();
+  const { groups, addExpense, calculateMemberBalances, markExpenseAsSettled } =
+    useGroupStore();
   const group = groups.find((g) => g.id === groupId);
   const { theme } = useContext(ThemeContext);
   const [customSplits, setCustomSplits] = useState({});
@@ -38,6 +38,7 @@ export default function GroupDetail({ route }) {
   const [splitType, setSplitType] = useState('equal');
   const [snackbarVisible, setSnackbarVisible] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarType, setSnackbarType] = useState('info');
   const [showAllMembers, setShowAllMembers] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
 
@@ -89,6 +90,7 @@ export default function GroupDetail({ route }) {
       setIsModalVisible(false);
       setTimeout(() => {
         setSnackbarMessage('Please fill all fields');
+        setSnackbarType('error');
         setSnackbarVisible(true);
       }, 300);
       return;
@@ -110,6 +112,7 @@ export default function GroupDetail({ route }) {
         setSnackbarMessage(
           `Allocated amount must equal ₹${expenseAmount.toFixed(2)}`,
         );
+        setSnackbarType('error');
         setSnackbarVisible(true);
         return;
       }
@@ -132,6 +135,7 @@ export default function GroupDetail({ route }) {
       splitType,
       splits,
       timestamp: new Date().toISOString(),
+      settled: false,
     };
     addExpense(groupId, expense);
     resetForm();
@@ -147,6 +151,7 @@ export default function GroupDetail({ route }) {
     setIsModalVisible(false);
     setShowCustomSplitModal(false);
     setSnackbarMessage('Expense added successfully!');
+    setSnackbarType('success');
     setSnackbarVisible(true);
   };
 
@@ -154,6 +159,13 @@ export default function GroupDetail({ route }) {
     setSplitType('equal');
     setCustomSplits({});
     setTotalCustomAmount(0);
+  };
+
+  const handleMarkAsSettled = (expenseId) => {
+    markExpenseAsSettled(groupId, expenseId);
+    setSnackbarMessage('Expense marked as settled!');
+    setSnackbarType('success');
+    setSnackbarVisible(true);
   };
 
   const memberBalances = calculateMemberBalances(groupId);
@@ -180,7 +192,7 @@ export default function GroupDetail({ route }) {
       <View className="flex-1">
         <ScrollView
           className="flex-1 px-6 pt-6"
-          contentContainerStyle={{ paddingBottom: 100 }}
+          contentContainerStyle={{ paddingBottom: 20 }}
         >
           <View className="mb-6">
             <Text
@@ -362,13 +374,13 @@ export default function GroupDetail({ route }) {
                 <View
                   className={`rounded-xl p-4 mb-3 ${
                     theme === 'dark' ? 'bg-neutral-800' : 'bg-gray-100'
-                  }`}
+                  } ${item.settled ? 'opacity-60' : ''}`}
                 >
                   <View className="flex-row justify-between mb-2">
                     <Text
                       className={`text-xl flex-1 font-medium ${
                         theme === 'dark' ? 'text-white' : 'text-black'
-                      }`}
+                      } ${item.settled ? 'line-through' : ''}`}
                     >
                       {item.description}
                     </Text>
@@ -376,7 +388,7 @@ export default function GroupDetail({ route }) {
                       ₹{item.amount.toFixed(2)}
                     </Text>
                   </View>
-                  <View className="flex-row mb-2">
+                  <View className="flex-row mb-2 items-center">
                     <Text
                       className={`text-base mr-6 ${
                         theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
@@ -384,8 +396,33 @@ export default function GroupDetail({ route }) {
                     >
                       Paid by {item.payer}
                     </Text>
+                    <View className="flex-row items-center">
+                      <AntDesign
+                        name={item.settled ? 'checkcircle' : 'clockcircle'}
+                        size={16}
+                        color={
+                          item.settled
+                            ? '#34D399'
+                            : theme === 'dark'
+                              ? '#9CA3AF'
+                              : '#6B7280'
+                        }
+                        style={{ marginRight: 4 }}
+                      />
+                      <Text
+                        className={`text-base font-semibold ${
+                          item.settled
+                            ? 'text-green-400'
+                            : theme === 'dark'
+                              ? 'text-gray-400'
+                              : 'text-gray-600'
+                        }`}
+                      >
+                        {item.settled ? 'Settled' : 'Unsettled'}
+                      </Text>
+                    </View>
                   </View>
-                  <View className="flex-row justify-between">
+                  <View className="flex-row justify-between items-center">
                     <Text
                       className={`text-sm ${
                         theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
@@ -393,15 +430,33 @@ export default function GroupDetail({ route }) {
                     >
                       {formatExpenseDate(item.timestamp)}
                     </Text>
-                    <Text
-                      className={`text-sm ${
-                        theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
-                      }`}
-                    >
-                      {item.splitType === 'equal'
-                        ? 'Equal split'
-                        : 'Custom split'}
-                    </Text>
+                    <View className="flex-row items-center">
+                      <Text
+                        className={`text-sm mr-3 ${
+                          theme === 'dark' ? 'text-gray-500' : 'text-gray-400'
+                        }`}
+                      >
+                        {item.splitType === 'equal'
+                          ? 'Equal split'
+                          : 'Custom split'}
+                      </Text>
+                      {!item.settled && (
+                        <TouchableOpacity
+                          onPress={() => handleMarkAsSettled(item.id)}
+                          className="bg-green-500 py-2 px-3 rounded-lg flex-row items-center shadow-md shadow-black"
+                        >
+                          <AntDesign
+                            name="check"
+                            size={16}
+                            color="white"
+                            style={{ marginRight: 4 }}
+                          />
+                          <Text className="text-white text-sm font-bold">
+                            Mark Settled
+                          </Text>
+                        </TouchableOpacity>
+                      )}
+                    </View>
                   </View>
                 </View>
               )}
@@ -685,6 +740,7 @@ export default function GroupDetail({ route }) {
                         ? 'Allocated amount exceeds total amount'
                         : 'Allocated amount must equal total amount',
                     );
+                    setSnackbarType('error');
                     setSnackbarVisible(true);
                   }
                 }}
@@ -709,7 +765,12 @@ export default function GroupDetail({ route }) {
         onDismiss={() => setSnackbarVisible(false)}
         duration={3000}
         style={{
-          backgroundColor: '#3B82F6',
+          backgroundColor:
+            snackbarType === 'success'
+              ? '#34D399'
+              : snackbarType === 'error'
+                ? '#EF4444'
+                : '#3B82F6',
           borderRadius: 8,
           marginHorizontal: 16,
         }}

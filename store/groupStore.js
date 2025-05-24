@@ -22,7 +22,21 @@ export const useGroupStore = create(
         set((state) => ({
           groups: state.groups.filter((group) => group.id !== groupId),
         })),
-
+      markExpenseAsSettled: (groupId, expenseId) =>
+        set((state) => ({
+          groups: state.groups.map((group) =>
+            group.id === groupId
+              ? {
+                  ...group,
+                  expenses: group.expenses.map((expense) =>
+                    expense.id === expenseId
+                      ? { ...expense, settled: true }
+                      : expense,
+                  ),
+                }
+              : group,
+          ),
+        })),
       calculateMemberBalances: (groupId) => {
         const group = get().groups.find((g) => g.id === groupId);
         if (!group || !group.members || !group.expenses) return [];
@@ -37,6 +51,7 @@ export const useGroupStore = create(
         }));
 
         group.expenses.forEach((expense) => {
+          if (expense.settled) return;
           const payerIndex = balances.findIndex(
             (m) => m.name === expense.payer,
           );
