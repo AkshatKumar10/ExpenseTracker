@@ -146,6 +146,7 @@ export default function AddMembersScreen() {
 
         <FlatList
           data={filteredContacts}
+          showsVerticalScrollIndicator={false}
           keyExtractor={(item) => `contact-${item.id}`}
           renderItem={({ item }) => {
             const isSelected = selectedContacts.some((c) => c.id === item.id);

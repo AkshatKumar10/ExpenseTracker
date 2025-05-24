@@ -329,6 +329,7 @@ export default function HomeScreen() {
 
       <FlatList
         data={groupsWithBalances}
+        showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.id}
         renderItem={renderGroupItem}
         ListEmptyComponent={
