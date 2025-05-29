@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import {
   View,
   Text,
   FlatList,
   TouchableOpacity,
-  SafeAreaView,
   ActivityIndicator,
   TextInput,
 } from 'react-native';
@@ -14,6 +13,7 @@ import NavBar from '../components/Navbar';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { auth } from '../firebase';
 import { ThemeContext } from '../context/ThemeContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function AddMembersScreen() {
   const navigation = useNavigation();

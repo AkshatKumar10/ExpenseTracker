@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   Dimensions,
-  SafeAreaView,
   ScrollView,
   Text,
   TextInput,
@@ -17,6 +16,7 @@ import {
   fetchSignInMethodsForEmail,
 } from 'firebase/auth';
 import { ThemeContext } from '../context/ThemeContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function SignInScreen() {
   const width = Dimensions.get('window').width;
@@ -116,6 +116,7 @@ export default function SignInScreen() {
               keyboardType="email-address"
               autoCapitalize="none"
               editable={!loading}
+              placeholderTextColor={theme === 'dark' ? '#6b7280' : '#9ca3af'}
             />
             <TextInput
               className={`${
@@ -128,6 +129,7 @@ export default function SignInScreen() {
               onChangeText={setPassword}
               secureTextEntry
               editable={!loading}
+              placeholderTextColor={theme === 'dark' ? '#6b7280' : '#9ca3af'}
             />
 
             <TouchableOpacity

@@ -1,11 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import {
   View,
   TextInput,
   Text,
   TouchableOpacity,
-  SafeAreaView,
-  StatusBar,
   KeyboardAvoidingView,
   Platform,
   FlatList,
@@ -22,6 +20,7 @@ import Feather from '@expo/vector-icons/Feather';
 import { auth } from '../firebase';
 import { ThemeContext } from '../context/ThemeContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function CreateGroup() {
   const [groupName, setGroupName] = useState('');
@@ -87,10 +86,6 @@ export default function CreateGroup() {
       className={`flex-1 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
       <NavBar />
-      <StatusBar
-        barStyle={theme === 'dark' ? 'light-content' : 'dark-content'}
-        backgroundColor={theme === 'dark' ? '#000000' : '#FFFFFF'}
-      />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         className="flex-1"
