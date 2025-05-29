@@ -20,6 +20,7 @@ import { ThemeContext } from '../context/ThemeContext';
 import { auth } from '../firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 export default function GroupDetail({ route }) {
   const { groupId } = route?.params || {};
@@ -183,6 +184,7 @@ export default function GroupDetail({ route }) {
     <SafeAreaView
       className={`flex-1 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
+      <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
       <NavBar />
       <View className="flex-1">
         <ScrollView

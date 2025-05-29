@@ -21,6 +21,7 @@ import { auth } from '../firebase';
 import { ThemeContext } from '../context/ThemeContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 export default function CreateGroup() {
   const [groupName, setGroupName] = useState('');
@@ -85,6 +86,7 @@ export default function CreateGroup() {
     <SafeAreaView
       className={`flex-1 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
+      <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
       <NavBar />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

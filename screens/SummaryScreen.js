@@ -13,6 +13,7 @@ import NavBar from '../components/Navbar';
 import { auth } from '../firebase';
 import { ThemeContext } from '../context/ThemeContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 export default function SummaryScreen() {
   const navigation = useNavigation();
@@ -278,6 +279,7 @@ export default function SummaryScreen() {
     <SafeAreaView
       className={`flex-1 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
+      <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
       <NavBar />
       <ScrollView className="flex-1 px-4 pt-4">
         <View className="mb-6">

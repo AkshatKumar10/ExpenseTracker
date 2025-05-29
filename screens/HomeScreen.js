@@ -16,6 +16,7 @@ import { auth } from '../firebase';
 import { ThemeContext } from '../context/ThemeContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -218,6 +219,7 @@ export default function HomeScreen() {
     <SafeAreaView
       className={`flex-1 ${theme === 'dark' ? 'bg-black' : 'bg-white'} px-4 pt-2`}
     >
+      <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
       <View className="mb-8">
         <Text
           className={`text-2xl font-semibold mb-2 ${
