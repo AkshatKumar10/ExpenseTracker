@@ -1,13 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react';
-import {
-  SafeAreaView,
-  View,
-  Text,
-  TouchableOpacity,
-  Alert,
-  Image,
-  StatusBar,
-} from 'react-native';
+import { useEffect, useState, useContext } from 'react';
+import { View, Text, TouchableOpacity, Alert, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
@@ -16,6 +8,7 @@ import * as Haptics from 'expo-haptics';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeContext } from '../context/ThemeContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
@@ -92,10 +85,6 @@ export default function ProfileScreen() {
     <SafeAreaView
       className={`flex-1 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
-      <StatusBar
-        barStyle={theme === 'dark' ? 'light-content' : 'dark-content'}
-        backgroundColor={theme === 'dark' ? '#000000' : '#FFFFFF'}
-      />
       <View className="flex-1 px-4 pt-2">
         <View className="flex-row justify-between items-center mb-8">
           <Text

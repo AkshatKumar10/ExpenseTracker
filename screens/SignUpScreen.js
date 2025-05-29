@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   Dimensions,
-  SafeAreaView,
   ScrollView,
   Text,
   TextInput,
@@ -13,6 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { ThemeContext } from '../context/ThemeContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function SignUpScreen() {
   const width = Dimensions.get('window').width;
@@ -87,6 +87,7 @@ export default function SignUpScreen() {
               onChangeText={setName}
               autoCapitalize="words"
               editable={!loading}
+              placeholderTextColor={theme === 'dark' ? '#6b7280' : '#9ca3af'}
             />
             <TextInput
               className={`${
@@ -100,6 +101,7 @@ export default function SignUpScreen() {
               keyboardType="email-address"
               autoCapitalize="none"
               editable={!loading}
+              placeholderTextColor={theme === 'dark' ? '#6b7280' : '#9ca3af'}
             />
             <TextInput
               className={`${
@@ -112,6 +114,7 @@ export default function SignUpScreen() {
               onChangeText={setPassword}
               secureTextEntry
               editable={!loading}
+              placeholderTextColor={theme === 'dark' ? '#6b7280' : '#9ca3af'}
             />
             <TouchableOpacity
               className={`bg-sky-400 rounded-xl items-center justify-center py-4 mb-4 ${
@@ -125,7 +128,7 @@ export default function SignUpScreen() {
                   theme === 'dark' ? 'text-white' : 'text-black'
                 } text-xl font-bold`}
               >
-                {loading ? 'Signing In...' : 'Sign In'}
+                {loading ? 'Signing Up...' : 'Sign Up'}
               </Text>
             </TouchableOpacity>
             <View className="flex-row justify-center gap-1">

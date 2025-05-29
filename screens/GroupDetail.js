@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,9 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
   ScrollView,
-  SafeAreaView,
   Modal,
-  StatusBar,
   Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -21,6 +19,7 @@ import { Picker } from '@react-native-picker/picker';
 import { ThemeContext } from '../context/ThemeContext';
 import { auth } from '../firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function GroupDetail({ route }) {
   const { groupId } = route?.params || {};
@@ -184,10 +183,6 @@ export default function GroupDetail({ route }) {
     <SafeAreaView
       className={`flex-1 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
-      <StatusBar
-        barStyle={theme === 'dark' ? 'light-content' : 'dark-content'}
-        backgroundColor={theme === 'dark' ? '#000000' : '#FFFFFF'}
-      />
       <NavBar />
       <View className="flex-1">
         <ScrollView

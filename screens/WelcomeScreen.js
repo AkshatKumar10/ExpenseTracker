@@ -1,15 +1,8 @@
-import React, { useContext } from 'react';
-import {
-  Dimensions,
-  Image,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { useContext } from 'react';
+import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
 import { ThemeContext } from '../context/ThemeContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function WelcomeScreen() {
   const width = Dimensions.get('window').width;
@@ -20,10 +13,6 @@ export default function WelcomeScreen() {
     <SafeAreaView
       className={`flex-1 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
-      <StatusBar
-        barStyle={theme === 'dark' ? 'light-content' : 'dark-content'}
-        backgroundColor={theme === 'dark' ? '#000000' : '#FFFFFF'}
-      />
       <View className="flex-1 justify-center items-center px-4">
         <Text
           className={`text-3xl ${

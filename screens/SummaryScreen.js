@@ -1,9 +1,7 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   View,
   Text,
-  SafeAreaView,
-  StatusBar,
   ScrollView,
   TouchableOpacity,
   FlatList,
@@ -14,6 +12,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import NavBar from '../components/Navbar';
 import { auth } from '../firebase';
 import { ThemeContext } from '../context/ThemeContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function SummaryScreen() {
   const navigation = useNavigation();
@@ -280,10 +279,6 @@ export default function SummaryScreen() {
       className={`flex-1 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
       <NavBar />
-      <StatusBar
-        barStyle={theme === 'dark' ? 'light-content' : 'dark-content'}
-        backgroundColor={theme === 'dark' ? '#000000' : '#FFFFFF'}
-      />
       <ScrollView className="flex-1 px-4 pt-4">
         <View className="mb-6">
           <Text
