@@ -17,6 +17,7 @@ import {
 } from 'firebase/auth';
 import { ThemeContext } from '../context/ThemeContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 export default function SignInScreen() {
   const width = Dimensions.get('window').width;
@@ -91,6 +92,7 @@ export default function SignInScreen() {
     <SafeAreaView
       className={`flex-1 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
+      <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"

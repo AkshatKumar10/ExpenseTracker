@@ -9,6 +9,7 @@ import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeContext } from '../context/ThemeContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 export default function ProfileScreen() {
   const navigation = useNavigation();
@@ -85,6 +86,7 @@ export default function ProfileScreen() {
     <SafeAreaView
       className={`flex-1 ${theme === 'dark' ? 'bg-black' : 'bg-white'}`}
     >
+      <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
       <View className="flex-1 px-4 pt-2">
         <View className="flex-row justify-between items-center mb-8">
           <Text
