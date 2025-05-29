@@ -21,13 +21,13 @@ A **Splitwise-style** expense tracker built with **React Native (Expo)**. Create
   - Equal split  
   - Custom split (define individual shares manually)
 
-- ✅ **Mark as Settled**
+- ✅ **Mark as Settled**  
   Easily mark any balance as settled once the payment has been made between users.
 
-- 🌓 **Dark/Light Theme Support**
+- 🌓 **Dark/Light Theme Support**  
   Seamless switching between dark and light themes for a better user experience.
 
-- 📊 **Real-Time Balance Updates**  
+- 📊 **Real-Time Balance Updates**
   Instantly reflect changes in balances when expenses are added or updated.
 
 - 📋 **Group-Wise and Overall Summaries**  
