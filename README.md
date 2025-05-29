@@ -46,8 +46,8 @@ A **Splitwise-style** expense tracker built with **React Native (Expo)**. Create
 
 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/group-expense-tracker.git
-cd group-expense-tracker
+git clone https://github.com/AkshatKumar10/ExpenseTracker.git
+cd ExpenseTracker
 ```
 
 2. Install dependencies
