@@ -20,7 +20,7 @@ const NavBar = ({ onBackPress }) => {
     <View>
       <Pressable onPress={handleBackPress} className="px-4">
         <AntDesign
-          name="arrowleft"
+          name="arrow-left"
           size={28}
           color={theme === 'dark' ? 'white' : 'black'}
         />

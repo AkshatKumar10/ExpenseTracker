@@ -12,6 +12,7 @@ import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useGroupStore } from '../store/groupStore';
 import * as Haptics from 'expo-haptics';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { auth } from '../firebase';
 import { ThemeContext } from '../context/ThemeContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -242,14 +243,14 @@ export default function HomeScreen() {
               className="mr-4"
             >
               <AntDesign
-                name="barschart"
+                name="bar-chart"
                 size={24}
                 color={theme === 'dark' ? 'white' : 'black'}
               />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-              <AntDesign
-                name="user"
+              <FontAwesome
+                name="user-o"
                 size={24}
                 color={theme === 'dark' ? 'white' : 'black'}
               />
@@ -272,7 +273,7 @@ export default function HomeScreen() {
             Net Balance
           </Text>
           <AntDesign
-            name={totalBalance < 0 ? 'arrowdown' : 'arrowup'}
+            name={totalBalance < 0 ? 'arrowdown' : 'arrow-up'}
             size={20}
             color={totalBalance < 0 ? '#ef4444' : '#4ade80'}
           />
@@ -332,7 +333,7 @@ export default function HomeScreen() {
         ListEmptyComponent={
           <View className="flex-1 justify-center items-center mt-20">
             <AntDesign
-              name="addusergroup"
+              name="usergroup-add"
               size={48}
               color={theme === 'dark' ? '#4b5563' : '#6b7280'}
             />
