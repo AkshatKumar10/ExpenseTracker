@@ -423,7 +423,7 @@ export default function SummaryScreen() {
                   } rounded-xl p-6 items-center justify-center`}
                 >
                   <AntDesign
-                    name="addusergroup"
+                    name="usergroup-add"
                     size={40}
                     color={theme === 'dark' ? '#4b5563' : '#6b7280'}
                   />
